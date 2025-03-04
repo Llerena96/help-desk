@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 
 // Suponiendo que los tickets están disponibles en el mismo archivo o importados
 import { tickets } from "./ticket-list"
+import { format } from "path/posix"
 
 export function TicketDetail() {
   const { ticketId } = useParams<{ ticketId: string }>() // Usamos el ticketId desde la URL
