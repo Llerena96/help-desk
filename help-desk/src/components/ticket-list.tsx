@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import { Button } from "./ui/button"
@@ -7,7 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Badge } from "./ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Search, Filter } from "lucide-react"
+import { Search, Filter, Eye } from "lucide-react"
+import { Link } from "react-router-dom"
 
 interface Ticket {
   id: string
@@ -80,16 +80,13 @@ export function TicketList() {
                 filteredTickets.map((ticket) => (
                   <TableRow key={ticket.id}>
                     <TableCell className="font-medium">{ticket.id}</TableCell>
-                    <TableCell>{ticket.title}</TableCell>
+                    <Link to={`/tickets/${ticket.id}`}> <TableCell>{ticket.title}</TableCell> </Link>
                     <TableCell>{ticket.requester}</TableCell>
                     <TableCell>{ticket.date}</TableCell>
                     <TableCell>
                       <Badge variant={getVariantByStatus(ticket.status)}>{ticket.status}</Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">
-                        Ver
-                      </Button>
                     </TableCell>
                   </TableRow>
                 ))
@@ -127,7 +124,7 @@ function getVariantByStatus(
   }
 }
 
-const tickets: Ticket[] = [
+export const tickets: Ticket[] = [
   {
     id: "TK-001",
     title: "Problema con impresora",
