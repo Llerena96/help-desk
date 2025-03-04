@@ -10,6 +10,7 @@ export function MainNav({ className, ...props }: MainNavProps) {
       <Link to="/" className="text-sm font-medium transition-colors hover:text-primary">
         Inicio
       </Link>
+      <Link to="/tickets"className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Tickets</Link> 
       <Link to="/settings" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
         Configuración
       </Link>

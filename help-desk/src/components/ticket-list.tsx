@@ -1,4 +1,4 @@
-
+import { MainNav } from "./main-nav"
 import { useState } from "react"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
@@ -30,6 +30,10 @@ export function TicketList() {
   })
 
   return (
+    <div>
+        <div className="flex h-16 items-center px-4">
+          <MainNav className="mx-6" />
+          </div>
     <Card>
       <CardHeader>
         <CardTitle>Listado de Tickets</CardTitle>
@@ -80,7 +84,7 @@ export function TicketList() {
                 filteredTickets.map((ticket) => (
                   <TableRow key={ticket.id}>
                     <TableCell className="font-medium">{ticket.id}</TableCell>
-                    <Link to={`/tickets/${ticket.id}`}> <TableCell>{ticket.title}</TableCell> </Link>
+                    <TableCell><Link to={`/tickets/${ticket.id}`}>{ticket.title}</Link></TableCell> 
                     <TableCell>{ticket.requester}</TableCell>
                     <TableCell>{ticket.date}</TableCell>
                     <TableCell>
@@ -102,6 +106,7 @@ export function TicketList() {
         </div>
       </CardContent>
     </Card>
+    </div>
   )
 }
 

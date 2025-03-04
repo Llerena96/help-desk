@@ -1,6 +1,4 @@
 import { useState } from "react"
-
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Overview } from "./overview"
@@ -32,7 +30,6 @@ export default function Dashboard() {
         <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
           <TabsList>
             <TabsTrigger value="overview">Resumen</TabsTrigger>
-            <TabsTrigger value="tickets">Tickets</TabsTrigger> 
             <TabsTrigger value="new">Nuevo Ticket</TabsTrigger>
             <TabsTrigger value="reports">Reportes</TabsTrigger>
             <TabsTrigger value="history">Historial</TabsTrigger>
