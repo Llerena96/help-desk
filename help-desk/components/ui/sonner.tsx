@@ -1,11 +1,11 @@
-"use client"
-
-import { useTheme } from "next-themes"
+import { useTheme } from "../theme-provider"
 import { Toaster as Sonner } from "sonner"
+import React from "react"
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
+  // Use your own useTheme hook instead of next-themes
   const { theme = "system" } = useTheme()
 
   return (
