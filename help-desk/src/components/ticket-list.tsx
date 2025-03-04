@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import { Button } from "./ui/button"
@@ -8,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Badge } from "./ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Search, Filter } from "lucide-react"
+import { Link } from "react-router-dom"
 
 interface Ticket {
   id: string
@@ -87,9 +87,11 @@ export function TicketList() {
                       <Badge variant={getVariantByStatus(ticket.status)}>{ticket.status}</Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">
-                        Ver
-                      </Button>
+                    <Link to={`/tickets/${ticket.id}`}>
+                        <Button className="bg-gray-500 text-white hover:bg-blue-600 p-2 rounded-lg">
+                          Ver
+                        </Button>
+                    </Link>
                     </TableCell>
                   </TableRow>
                 ))
@@ -127,7 +129,7 @@ function getVariantByStatus(
   }
 }
 
-const tickets: Ticket[] = [
+export const tickets: Ticket[] = [
   {
     id: "TK-001",
     title: "Problema con impresora",
