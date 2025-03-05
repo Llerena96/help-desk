@@ -38,7 +38,14 @@
 
     --radius: 0.5rem;
   }
-
+  
+  @layer base {
+    body {
+      background-color: hsl(var(--background)) !important;
+      color: hsl(var(--foreground)) !important;
+    }
+  }
+  
   /* Dark Mode Variables */
   .dark {
     --background: 222.2 84% 4.9%;

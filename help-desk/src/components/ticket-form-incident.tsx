@@ -6,15 +6,13 @@ import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
-import { Sub } from "@radix-ui/react-dropdown-menu"
 
-export function TicketForm() {
+export function TicketFormIncident() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("")
   const [selectedsubCategory, setSelectedsubCategory] = useState("")
   const [subCategories, setSubCategories] = useState([])
-  const [subsubCategories, setSubsubCategories] = useState([])
 
   const categories = [
     { id: "1", name: "AD Administrativo", sub: [
@@ -64,11 +62,11 @@ export function TicketForm() {
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Crear Ticket</h2>
+      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Crear Incidente</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="title">Título</Label>
-          <Input id="title" placeholder="Título del ticket" required className="border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+          <Input id="title" placeholder="Título del incidente" required className="border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
         </div>
         <div className="flex flex-col py-2">
           <Label>Categoría</Label>
@@ -81,7 +79,7 @@ export function TicketForm() {
                 {categories.map(cat => renderCategoryOptions(cat))}
               </SelectContent>
             </Select>
-            <Button onClick={() => setIsModalOpen(true)}>Seleccionar</Button>
+            <Button onClick={() => setIsModalOpen(true)}>cambiar a icono</Button>
           </div>
         </div>
       </div>
@@ -184,7 +182,9 @@ export function TicketForm() {
       <div className="space-y-2">
         <Label htmlFor="description">Descripción</Label>
         <Textarea id="description" placeholder="Describa el problema en detalle" required className="min-h-[120px] border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
-      </div>
+      </div>{
+        //poner aqui un enlace al FAQ para orientar en la levantacion de incidentes / solicitud de servicio
+      }
 
       <div className="space-y-2">
         <Label htmlFor="attachment">Adjuntos (opcional)</Label>

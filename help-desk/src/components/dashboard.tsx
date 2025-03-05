@@ -3,12 +3,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Overview } from "./overview"
 import { RecentTickets } from "./recent-tickets"
-import { TicketForm } from "./ticket-form"
+import { TicketForm } from "./ticket-form-service"
 import { TicketList } from "./ticket-list"
 import { Reports } from "./reports"
 import { History } from "./history"
 import { MainNav } from "./main-nav"
 import { UserNav } from "./user-nav"
+import { TicketFormIncident } from "./ticket-form-incident"
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -31,6 +32,7 @@ export default function Dashboard() {
           <TabsList>
             <TabsTrigger value="overview">Resumen</TabsTrigger>
             <TabsTrigger value="new">Nuevo Ticket</TabsTrigger>
+            <TabsTrigger value="incident">Incidente</TabsTrigger>
             <TabsTrigger value="reports">Reportes</TabsTrigger>
             <TabsTrigger value="history">Historial</TabsTrigger>
           </TabsList>
@@ -49,6 +51,17 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <TicketForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="incident">
+            <Card>
+              <CardHeader>
+                <CardTitle>Crear Nuevo Incidente</CardTitle>
+                <CardDescription>Complete el formulario para crear un nuevo incidente de soporte.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TicketFormIncident />
               </CardContent>
             </Card>
           </TabsContent>

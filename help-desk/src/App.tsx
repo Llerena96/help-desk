@@ -8,7 +8,6 @@ import { LoginForm } from "./components/login";
 import { ThemeProvider } from "./components/theme-provider";
 import { TicketList } from "./components/ticket-list";
 
-
 function App() {
   return (
     <ThemeProvider>

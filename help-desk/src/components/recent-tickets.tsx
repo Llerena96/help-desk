@@ -64,7 +64,7 @@ const recentTickets: Ticket[] = [
   {
     id: "1",
     title: "Problema con impresora",
-    email: "carlos@ejemplo.com",
+    email: "sirjoseph@ejemplo.com",
     status: "Abierto",
     avatar: "/placeholder.svg?height=32&width=32",
     initials: "CP",
