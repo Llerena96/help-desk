@@ -40,20 +40,20 @@ export function Reports() {
     <div className="space-y-4">
       <Tabs defaultValue="summary space-y-4">
         <TabsList>
-          <TabsTrigger value="summary">Resumen</TabsTrigger>
-          <TabsTrigger value="performance">Rendimiento</TabsTrigger>
-          <TabsTrigger value="categories">Categorías</TabsTrigger>
-          <TabsTrigger value="agents">Agentes</TabsTrigger>
+          <TabsTrigger value="summary" className="tab-trigger">Resumen</TabsTrigger>
+          <TabsTrigger value="performance" className="tab-trigger">Rendimiento</TabsTrigger>
+          <TabsTrigger value="categories" className="tab-trigger">Categorías</TabsTrigger>
+          <TabsTrigger value="agents" className="tab-trigger">Agentes</TabsTrigger>
         </TabsList>
 
         <TabsContent value="summary">
           {/* Botones para seleccionar tipo de gráfico */}
           <div className="flex space-x-4 mb-4">
-            <Button onClick={() => setChartType('line')}>Línea</Button>
-            <Button onClick={() => setChartType('pie')}>Torta</Button>
-            <Button onClick={() => setChartType('area')}>Área</Button>
-            <Button onClick={() => setChartType('bar')}>Barras</Button>
-            <Button onClick={() => setChartType('radar')}>Radar</Button>
+            <Button onClick={() => setChartType('line')}className="tab-trigger">Línea</Button>
+            <Button onClick={() => setChartType('pie')}className="tab-trigger">Torta</Button>
+            <Button onClick={() => setChartType('area')}className="tab-trigger">Área</Button>
+            <Button onClick={() => setChartType('bar')}className="tab-trigger">Barras</Button>
+            <Button onClick={() => setChartType('radar')}className="tab-trigger">Radar</Button>
           </div>
 
           <Card>

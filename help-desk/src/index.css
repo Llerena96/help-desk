@@ -9,36 +9,26 @@
 
   /* Variables para el modo claro */
   :root {
-    --background: 210 40% 98%; /* Color de fondo claro */
-    --foreground: 210 10% 20%; /* Color de texto claro */
-
-    --card: 255 255 255; /* Color de las tarjetas en claro */
-    --card-foreground: 210 10% 20%; /* Color del texto en tarjetas */
-
-    --popover: 255 255 255; /* Color del popover en claro */
-    --popover-foreground: 210 10% 20%; /* Color del texto del popover */
-
-    --primary: 217.2 91.2% 59.8%; /* Color primario */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Color del texto primario */
-    
+    --background: 210 40% 98%;
+    --foreground: 210 10% 20%;
+    --card: 255 255 255;
+    --card-foreground: 210 10% 20%;
+    --popover: 255 255 255;
+    --popover-foreground: 210 10% 20%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --success: 142.1 70.6% 45.3%;
     --success-foreground: 144.9 80.4% 10%;
-
     --warning: 48 96% 89%;
     --warning-foreground: 38 92% 50%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
@@ -47,39 +37,55 @@
   /* Estilos para el modo oscuro */
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 222.2 84% 4.9%; /* Fondo oscuro */
-      --foreground: 210 40% 98%; /* Texto claro en fondo oscuro */
-
+      --background: 222.2 84% 4.9%;
+      --foreground: 210 40% 98%;
       --card: 222.2 84% 4.9%;
       --card-foreground: 210 40% 98%;
-
       --popover: 222.2 84% 4.9%;
       --popover-foreground: 210 40% 98%;
-
       --primary: 217.2 91.2% 59.8%;
       --primary-foreground: 222.2 47.4% 11.2%;
-
       --secondary: 217.2 32.6% 17.5%;
       --secondary-foreground: 210 40% 98%;
-
       --muted: 217.2 32.6% 17.5%;
       --muted-foreground: 215 20.2% 65.1%;
-
       --accent: 217.2 32.6% 17.5%;
       --accent-foreground: 210 40% 98%;
-
       --destructive: 0 62.8% 30.6%;
       --destructive-foreground: 210 40% 98%;
-
       --success: 142.1 70.6% 45.3%;
       --success-foreground: 144.9 80.4% 10%;
-
       --warning: 48 96% 89%;
       --warning-foreground: 38 92% 50%;
-
       --border: 217.2 32.6% 17.5%;
       --input: 217.2 32.6% 17.5%;
       --ring: 224.3 76.3% 48%;
     }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-700 text-white hover:bg-gray-800;
+  }
+
+  .tab-trigger {
+    @apply px-4 py-2 rounded-md transition-colors;
+  }
+
+  .tab-trigger[data-state="active"] {
+    @apply bg-blue-500 text-white;
+  }
+
+  .tab-trigger:hover {
+    @apply bg-blue-600 text-white;
   }
 }
