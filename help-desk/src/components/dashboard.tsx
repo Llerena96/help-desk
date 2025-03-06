@@ -4,16 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Overview } from "./overview"
 import { RecentTickets } from "./recent-tickets"
 import { TicketForm } from "./ticket-form-service"
-import { TicketList } from "./ticket-list"
 import { Reports } from "./reports"
-import { History } from "./history"
 import { TicketFormIncident } from "./ticket-form-incident"
 import { useTheme } from "./theme-provider"
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
-  const { theme } = useTheme();
-  console.log("Current theme in Dashboard:", theme); // Verifica si el tema cambia
   return (
     <div className="flex min-h-screen flex-col">
        
@@ -23,29 +19,23 @@ export default function Dashboard() {
         </div>
         <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="flex space-x-2 border-b mb-7 pb-7">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+            <TabsTrigger value="overview" className="tab-trigger">
               Resumen
             </TabsTrigger>
-            <TabsTrigger value="new" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+            <TabsTrigger value="new" className="tab-trigger">
               Nuevo Ticket
             </TabsTrigger>
-            <TabsTrigger value="incident" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+            <TabsTrigger value="incident" className="tab-trigger">
               Incidente
             </TabsTrigger>
-            <TabsTrigger value="reports" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+            <TabsTrigger value="reports" className="tab-trigger">
               Reportes
-            </TabsTrigger>
-            <TabsTrigger value="history" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
-              Historial
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
             <Overview />
             <RecentTickets />
-          </TabsContent>
-          <TabsContent value="tickets">
-            <TicketList />
           </TabsContent>
           <TabsContent value="new">
             <Card>
@@ -71,9 +61,6 @@ export default function Dashboard() {
           </TabsContent>
           <TabsContent value="reports">
             <Reports />
-          </TabsContent>
-          <TabsContent value="history">
-            <History />
           </TabsContent>
         </Tabs>
       </div>

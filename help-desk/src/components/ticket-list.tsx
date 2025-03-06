@@ -11,6 +11,14 @@ import { Search, Filter, UserCheck, XCircle, Repeat, List } from "lucide-react";
 interface Ticket {
   id: string;
   title: string;
+  description :string;
+  priority: string;
+  createdAt: string;
+  site: string;
+  componentId: string;
+  startDate: string;
+  resolutionDate: string;
+  closeDate: string;
   requester: string;
   date: string;
   status: string;
@@ -151,12 +159,12 @@ function getBadgeColor(status: string) {
 }
 
 export const tickets: Ticket[] = [
-  { id: "TK-001", title: "Problema con impresora", requester: "Carlos Pérez", date: "2023-03-01", status: "Abierto" },
-  { id: "TK-002", title: "Error en sistema de facturación", requester: "María López", date: "2023-03-01", status: "Crítico" },
-  { id: "TK-003", title: "Solicitud de nuevo equipo", requester: "Juan Pérez", date: "2023-02-28", status: "En Progreso" },
-  { id: "TK-004", title: "Acceso a sistema CRM", requester: "Ana Rodríguez", date: "2023-02-28", status: "Pendiente" },
-  { id: "TK-005", title: "Actualización de software", requester: "Pedro Sánchez", date: "2023-02-27", status: "Resuelto" },
-  { id: "TK-006", title: "Problema con VPN", requester: "Laura Martínez", date: "2023-02-27", status: "En Progreso" },
-  { id: "TK-007", title: "Configuración de correo", requester: "Roberto Gómez", date: "2023-02-26", status: "Resuelto" },
-  { id: "TK-008", title: "Error en aplicación móvil", requester: "Sofía Díaz", date: "2023-02-26", status: "Abierto" },
+  { id: "TK-001", title: "Problema con impresora",description: "prueba descripcion", requester: "Carlos Pérez", date: "2023-03-01", status: "Abierto" ,site:"c2p",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-002", title: "Error en sistema de facturación",description: "prueba descripcion", requester: "María López", date: "2023-03-01", status: "Crítico" ,site:"c5",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-003", title: "Solicitud de nuevo equipo",description: "prueba descripcion", requester: "Juan Pérez", date: "2023-02-28", status: "En Progreso" ,site:"c2n",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-004", title: "Acceso a sistema CRM",description: "prueba descripcion", requester: "Ana Rodríguez", date: "2023-02-28", status: "Pendiente" ,site:"c2o",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-005", title: "Actualización de software",description: "prueba descripcion", requester: "Pedro Sánchez", date: "2023-02-27", status: "Resuelto" ,site:"c2c",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-006", title: "Problema con VPN",description: "prueba descripcion", requester: "Laura Martínez", date: "2023-02-27", status: "En Progreso" ,site:"c2s",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-007", title: "Configuración de correo",description: "prueba descripcion", requester: "Roberto Gómez", date: "2023-02-26", status: "Resuelto" ,site:"c2n",priority:"high",createdAt:"06/03/2025",componentId:"wks-c4i-des-01",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
+  { id: "TK-008", title: "Error en aplicación móvil",description: "prueba descripcion", requester: "Sofía Díaz", date: "2023-02-26", status: "Abierto" ,site:"c5",priority:"high",createdAt:"06/03/2025",componentId:"wks-c24-asd-1",startDate:"10/03/2025",resolutionDate:"15/03/2025",closeDate:"15/03/2025"},
 ]

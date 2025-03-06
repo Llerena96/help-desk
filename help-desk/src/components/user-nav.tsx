@@ -29,11 +29,11 @@ export function UserNav() {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
-              className="w-56 p-4 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+              className="w-56 p-4 bg-white dark:bg-gray-700 border border-gray-200 rounded-md shadow-lg z-50"
               align="end"
               forceMount
             >
-              <DropdownMenuLabel className="font-normal text-gray-800 mb-2">
+              <DropdownMenuLabel className="dark:text-white font-normal text-gray-800 mb-2">
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">Usuario</p>
                   <p className="text-xs leading-none text-muted-foreground">usuario@ejemplo.com</p>
@@ -44,12 +44,12 @@ export function UserNav() {
 
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  <Link to="/viewUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
+                  <Link to="/viewUser" className="text-sm text-gray-700 dark:text-white hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
                     Ver usuario
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/editUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
+                  <Link to="/editUser" className=" dark:text-white text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
                     Modificar usuario
                   </Link>
                 </DropdownMenuItem>
