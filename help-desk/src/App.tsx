@@ -3,7 +3,7 @@ import Dashboard from "./components/dashboard";
 import { Reports } from "./components/reports";
 import { Settings } from "./components/Settings";
 import { TicketList } from "./components/ticket-list";
-import { TicketDetail } from "./components/ticketDetail";
+import { TicketDetail } from "./components/ticketDetail"
 import { LoginForm } from "./components/login";
 import { ThemeProvider } from "./components/theme-provider";
 import { Sidebar } from "./components/ui/Sidebar"; // Importa el Sidebar
