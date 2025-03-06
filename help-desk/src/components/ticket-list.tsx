@@ -1,62 +1,60 @@
-import { MainNav } from "./main-nav"
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
-import { Badge } from "./ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Search, Filter, Eye, UserCheck, XCircle, Repeat } from "lucide-react"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Badge } from "./ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Search, Filter, UserCheck, XCircle, Repeat, List } from "lucide-react";
 
 interface Ticket {
-  id: string
-  title: string
-  requester: string
-  date: string
-  status: string
+  id: string;
+  title: string;
+  requester: string;
+  date: string;
+  status: string;
 }
 
 export function TicketList() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const filteredTickets = tickets.filter((ticket) => {
     const matchesSearch =
       ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ticket.id.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || ticket.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+      ticket.id.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "all" || ticket.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
-    <div>
-      <div className="flex h-16 items-center px-4">
-        <MainNav className="mx-6" />
-      </div>
-
+    <div className="p-6 space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle>Listado de Tickets</CardTitle>
+        <CardHeader className="bg-gray-700 text-white rounded-t-md mb-7">
+            <CardTitle className="flex items-center gap-2">
+              <List className="w-5 h-5" /> {/* Icono de lista */}
+              <span className="text-lg">Listado de Tickets</span> {/* Texto */}
+            </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2 w-full max-w-sm">
-              <Search className="w-4 h-4 text-muted-foreground" />
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="relative">
+              <Search className="absolute left-3 top-2.5 w-5 h-5 text-gray-100 dark:text-gray-300" />
               <Input
                 placeholder="Buscar por ID o título..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-9 border border-gray-300 rounded-md px-2"
+                className="pl-10 bg-gray-400 text-white font-bold h-10 border border-gray-600 rounded-md dark:bg-gray-700"
               />
             </div>
-            <div className="flex items-center gap-2">
-              <Filter className="w-4 h-4 text-muted-foreground" />
+            <div className="relative">
+              <Filter className="absolute left-3 top-2.5 w-5 h-5 text-white dark:text-gray-300" />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-[180px] h-9 border border-gray-300 rounded-md">
+                <SelectTrigger className="pl-10 bg-gray-400 font-bold text-white h-10 border border-gray-600 rounded-md dark:bg-gray-700">
                   <SelectValue placeholder="Filtrar por estado" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white text-black dark:bg-gray-800">
                   <SelectItem value="all">Todos</SelectItem>
                   <SelectItem value="Abierto">Abierto</SelectItem>
                   <SelectItem value="En Progreso">En Progreso</SelectItem>
@@ -68,9 +66,9 @@ export function TicketList() {
             </div>
           </div>
 
-          <div className="rounded-md border shadow-sm">
+          <div className="overflow-x-auto mt-10">
             <Table className="w-full text-sm">
-              <TableHeader className="bg-gray-100">
+              <TableHeader className="text-white bg-gray-700 dark:bg-gray-900">
                 <TableRow>
                   <TableHead className="w-[100px]">ID</TableHead>
                   <TableHead>Título</TableHead>
@@ -83,34 +81,52 @@ export function TicketList() {
               <TableBody>
                 {filteredTickets.length > 0 ? (
                   filteredTickets.map((ticket) => (
-                    <TableRow key={ticket.id} className="border-b hover:bg-gray-50">
+                    <TableRow key={ticket.id} className="hover:bg-gray-700 hover:text-white font-bold">
                       <TableCell className="font-medium">{ticket.id}</TableCell>
                       <TableCell>
-                        <Link to={`/tickets/${ticket.id}`} className="text-blue-600 hover:underline">
+                        <Link to={`/tickets/${ticket.id}`} className="text-blue-400 hover:underline">
                           {ticket.title}
                         </Link>
                       </TableCell>
                       <TableCell>{ticket.requester}</TableCell>
                       <TableCell>{ticket.date}</TableCell>
                       <TableCell>
-                        <Badge variant={getVariantByStatus(ticket.status)}>{ticket.status}</Badge>
+                        <Badge className={getBadgeColor(ticket.status)}>{ticket.status}</Badge>
                       </TableCell>
                       <TableCell className="text-center space-x-2">
-                        <Button size="sm" variant="outline">
-                          <UserCheck className="w-4 h-4 mr-1" /> Reasignar
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          title="Reasignar"
+                          className="px-4 py-2  border-blue-500 bg-blue-500 font-bold text-white hover:bg-blue-400 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                        >
+                          <UserCheck className="w-4 h-4 mr-1" />                         
                         </Button>
-                        <Button size="sm" variant="destructive">
-                          <XCircle className="w-4 h-4 mr-1" /> Cerrar
+
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          title="Cambiar estado"
+                          className="px-4 py-2 border-yellow-500 bg-yellow-500 font-bold text-white hover:bg-yellow-400 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                        >
+                          <Repeat className="w-4 h-4 mr-1" />
                         </Button>
-                        <Button size="sm" variant="secondary">
-                          <Repeat className="w-4 h-4 mr-1" /> Cambiar estado
+                        
+                        <Button
+                          size="sm"
+                          title="Cerrar"
+                          variant="outline"
+                          className="px-4 py-2 border-red-500 bg-red-500 font-bold text-white hover:bg-red-400 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                        >
+                          <XCircle className="w-4 h-4 mr-1" /> 
                         </Button>
                       </TableCell>
+
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={6} className="h-24 text-center">
+                    <TableCell colSpan={6} className="h-24 text-center text-gray-900 dark:text-gray-300">
                       No se encontraron tickets.
                     </TableCell>
                   </TableRow>
@@ -121,26 +137,17 @@ export function TicketList() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-
-function getVariantByStatus(
-  status: string,
-): "default" | "secondary" | "destructive" | "outline" | "success" | "warning" {
-  switch (status) {
-    case "Abierto":
-      return "default"
-    case "En Progreso":
-      return "secondary"
-    case "Pendiente":
-      return "warning"
-    case "Resuelto":
-      return "success"
-    case "Crítico":
-      return "destructive"
-    default:
-      return "outline"
-  }
+function getBadgeColor(status: string) {
+  const colors: Record<string, string> = {
+    Abierto: "bg-blue-500 text-white",
+    "En Progreso": "bg-yellow-500 text-white",
+    Pendiente: "bg-orange-500 text-white",
+    Resuelto: "bg-green-500 text-white",
+    Crítico: "bg-red-500 text-white",
+  };
+  return colors[status] || "bg-gray-500 text-white";
 }
 
 export const tickets: Ticket[] = [

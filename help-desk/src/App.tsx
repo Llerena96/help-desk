@@ -8,6 +8,7 @@ import { LoginForm } from "./components/login";
 import { ThemeProvider } from "./components/theme-provider";
 import { Sidebar } from "./components/ui/Sidebar"; // Importa el Sidebar
 import { UserNav } from "./components/user-nav"; // Importa la navbar de usuario
+import { UserProfile } from "./components/UserProfile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/tickets" element={<TicketList />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/viewUser" element={<UserProfile />} />
                 <Route path="/login" element={<LoginForm />} />
               </Routes>
             </main>

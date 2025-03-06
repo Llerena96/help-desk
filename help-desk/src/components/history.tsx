@@ -1,129 +1,140 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 import { Badge } from "./ui/badge"
+import { Button } from "./ui/button"
+import { UserCheck, Repeat, XCircle } from "lucide-react"  // Asegúrate de tener estas importaciones
 
 interface HistoryItem {
   ticketId: string
-  action: string
-  user: string
+  title: string
+  requester: string
   date: string
-  details: string
+  status: string
+  action: string
 }
 
 export function History() {
   return (
-    <Card>
+    <div className="overflow-x-auto mt-10">
       <CardHeader>
-        <CardTitle>Historial de Modificaciones</CardTitle>
-        <CardDescription>Registro de cambios realizados en los tickets.</CardDescription>
+        <CardTitle className="dark:text-white">Historial de Modificaciones</CardTitle>
+        <CardDescription className="dark:text-gray-300">
+          Registro de cambios realizados en los tickets.
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">ID Ticket</TableHead>
-                <TableHead>Acción</TableHead>
-                <TableHead>Usuario</TableHead>
-                <TableHead>Fecha</TableHead>
-                <TableHead>Detalles</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {historyData.map((item, index) => (
-                <TableRow key={index}>
+        <Table className="w-full text-sm text-white bg-gray-700 dark:bg-gray-900">
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead>Título</TableHead>
+              <TableHead>Solicitante</TableHead>
+              <TableHead>Fecha</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead className="text-center">Acciones</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {historyData.length > 0 ? (
+              historyData.map((item) => (
+                <TableRow key={item.ticketId} className="hover:bg-gray-700 hover:text-white font-bold">
                   <TableCell className="font-medium">{item.ticketId}</TableCell>
                   <TableCell>
-                    <Badge variant={getVariantByAction(item.action)}>{item.action}</Badge>
+                    <a href={`/tickets/${item.ticketId}`} className="text-blue-400 hover:underline">
+                      {item.title}
+                    </a>
                   </TableCell>
-                  <TableCell>{item.user}</TableCell>
+                  <TableCell>{item.requester}</TableCell>
                   <TableCell>{item.date}</TableCell>
-                  <TableCell className="max-w-[300px] truncate">{item.details}</TableCell>
+                  <TableCell>
+                    <Badge className={getBadgeColor(item.status)}>{item.status}</Badge>
+                  </TableCell>
+                  <TableCell className="text-center space-x-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      title="Reasignar"
+                      className="px-4 py-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                    >
+                      <UserCheck className="w-4 h-4 mr-1" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      title="Cambiar estado"
+                      className="px-4 py-2 border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                    >
+                      <Repeat className="w-4 h-4 mr-1" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      title="Cerrar"
+                      variant="outline"
+                      className="px-4 py-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all rounded-md shadow-sm hover:shadow-md"
+                    >
+                      <XCircle className="w-4 h-4 mr-1" />
+                    </Button>
+                  </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} className="h-24 text-center text-gray-900 dark:text-gray-300">
+                  No se encontraron tickets.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </CardContent>
-    </Card>
+    </div>
   )
 }
 
-function getVariantByAction(
-  action: string,
-): "default" | "secondary" | "destructive" | "outline" | "success" | "warning" {
-  switch (action) {
-    case "Creación":
-      return "default"
-    case "Actualización":
-      return "secondary"
-    case "Asignación":
-      return "outline"
-    case "Comentario":
-      return "warning"
-    case "Resolución":
-      return "success"
+function getBadgeColor(status: string): string {
+  switch (status) {
+    case "Abierto":
+      return "bg-green-500 text-white"
+    case "En Progreso":
+      return "bg-yellow-500 text-white"
+    case "Cerrado":
+      return "bg-red-500 text-white"
     default:
-      return "outline"
+      return "bg-gray-500 text-white"
   }
 }
 
 const historyData: HistoryItem[] = [
   {
     ticketId: "TK-005",
+    title: "Problema con el sistema de login",
+    requester: "Juan Pérez",
+    date: "2023-03-01 15:30",
+    status: "Cerrado",
     action: "Resolución",
-    user: "Técnico 2",
-    date: "2023-02-27 15:30",
-    details: "Se resolvió el problema actualizando el software a la versión más reciente.",
   },
   {
     ticketId: "TK-003",
-    action: "Actualización",
-    user: "Técnico 1",
+    title: "Error en la página principal",
+    requester: "Sofía Díaz",
     date: "2023-02-28 10:15",
-    details: "Se cambió el estado a 'En Progreso'. Se está evaluando el equipo necesario.",
+    status: "En Progreso",
+    action: "Actualización",
   },
   {
     ticketId: "TK-004",
-    action: "Comentario",
-    user: "Administrador",
+    title: "Problema de acceso a VPN",
+    requester: "Carlos Pérez",
     date: "2023-02-28 09:45",
-    details: "Se requiere aprobación del departamento de seguridad para otorgar acceso.",
+    status: "Abierto",
+    action: "Comentario",
   },
   {
     ticketId: "TK-002",
-    action: "Asignación",
-    user: "Supervisor",
+    title: "Asignación de técnico",
+    requester: "Supervisor",
     date: "2023-03-01 08:30",
-    details: "Asignado a Técnico 3 por la criticidad del problema. Se requiere solución urgente.",
-  },
-  {
-    ticketId: "TK-001",
-    action: "Creación",
-    user: "Carlos Pérez",
-    date: "2023-03-01 09:15",
-    details: "Ticket creado para resolver problema con impresora que no responde.",
-  },
-  {
-    ticketId: "TK-007",
-    action: "Resolución",
-    user: "Técnico 1",
-    date: "2023-02-26 14:20",
-    details: "Se configuró correctamente el cliente de correo y se verificó su funcionamiento.",
-  },
-  {
-    ticketId: "TK-006",
-    action: "Actualización",
-    user: "Técnico 2",
-    date: "2023-02-27 11:45",
-    details: "Se identificó problema con el certificado VPN. Se está trabajando en su renovación.",
-  },
-  {
-    ticketId: "TK-008",
-    action: "Creación",
-    user: "Sofía Díaz",
-    date: "2023-02-26 16:30",
-    details: "Reporte de error en la aplicación móvil al intentar acceder al módulo de reportes.",
+    status: "Abierto",
+    action: "Asignación",
   },
 ]
-

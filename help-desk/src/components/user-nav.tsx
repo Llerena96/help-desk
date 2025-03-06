@@ -46,59 +46,69 @@ export function UserNav() {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 ml-auto">
-      {/* Botón de Toggle Dark Mode */}
-      <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-        {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-      </Button>
+    <>
+        <Link to={"/"}>
+        <h1 className="flex items-center space-x-2">
+          <span className="font-bold text-blue-500 text-xl sm:text-2xl md:text-3xl">Help</span>
+        </h1>
+          <span className="font-bold text-yellow-500 text-xl sm:text-2xl md:text-3xl pl-15">/Desk</span>
+        
+        </Link>
 
-      {/* Avatar y Dropdown Menu del Usuario */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Avatar" />
-            <AvatarFallback className="flex items-center justify-center w-full h-full">
-              <span className="text-sm font-medium text-center">US</span>
-            </AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
+        <div className="flex items-center justify-center gap-4 ml-auto">
+          {/* Botón de Toggle Dark Mode */}
+          <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
 
-        <DropdownMenuContent
-          className="w-56 p-4 bg-white border border-gray-200 rounded-md shadow-lg z-50"
-          align="end"
-          forceMount
-        >
-          <DropdownMenuLabel className="font-normal text-gray-800 mb-2">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Usuario</p>
-              <p className="text-xs leading-none text-muted-foreground">usuario@ejemplo.com</p>
-            </div>
-          </DropdownMenuLabel>
+          {/* Avatar y Dropdown Menu del Usuario */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="h-8 w-8">
+                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Avatar" />
+                <AvatarFallback className="flex items-center justify-center w-full h-full">
+                  <span className="text-sm font-medium text-center">US</span>
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
 
-          <DropdownMenuSeparator className="border-t border-gray-200" />
+            <DropdownMenuContent
+              className="w-56 p-4 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+              align="end"
+              forceMount
+            >
+              <DropdownMenuLabel className="font-normal text-gray-800 mb-2">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">Usuario</p>
+                  <p className="text-xs leading-none text-muted-foreground">usuario@ejemplo.com</p>
+                </div>
+              </DropdownMenuLabel>
 
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Link to="/viewUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
-                Ver usuario
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/editUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
-                Modificar usuario
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
+              <DropdownMenuSeparator className="border-t border-gray-200" />
 
-          <DropdownMenuSeparator className="border-t border-gray-200" />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link to="/viewUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
+                    Ver usuario
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/editUser" className="text-sm text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-md p-2 transition-all">
+                    Modificar usuario
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
 
-          <DropdownMenuItem>
-            <Link to="/login" className="text-sm text-red-600 hover:text-white hover:bg-red-600 rounded-md p-2 transition-all">
-              Cerrar sesión
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+              <DropdownMenuSeparator className="border-t border-gray-200" />
+
+              <DropdownMenuItem>
+                <Link to="/login" className="text-sm text-red-600 hover:text-white hover:bg-red-600 rounded-md p-2 transition-all">
+                  Cerrar sesión
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+    </>
   );
 }
