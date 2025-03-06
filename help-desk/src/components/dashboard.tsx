@@ -10,10 +10,12 @@ import { History } from "./history"
 import { MainNav } from "./main-nav"
 import { UserNav } from "./user-nav"
 import { TicketFormIncident } from "./ticket-form-incident"
+import { useTheme } from "./theme-provider"
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
-
+  const { theme } = useTheme();
+  console.log("Current theme in Dashboard:", theme); // Verifica si el tema cambia
   return (
     <div className="flex min-h-screen flex-col">
       <div className="border-b">

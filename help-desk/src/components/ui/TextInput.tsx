@@ -1,11 +1,14 @@
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import type React from "react"
 
-export function TextInput({ id, label, placeholder, required = false }) {
+interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export function TextInput({ className, ...props }: TextInputProps) {
   return (
-    <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
-      <Input id={id} placeholder={placeholder} required={required} />
-    </div>
-  );
+    <input
+      type="text"
+      className={`w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary ${className || ""}`}
+      {...props}
+    />
+  )
 }
+

@@ -24,40 +24,51 @@ const ThemeProviderContext = createContext<ThemeProviderState>({
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  storageKey = "theme", // Cambié la clave para evitar posibles conflictos
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem(storageKey) as Theme) || defaultTheme)
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Obtenemos el tema desde localStorage
+    const storedTheme = localStorage.getItem(storageKey);
+    if (storedTheme) {
+      // Si el valor es 'true' o 'false', lo mapeamos a 'dark' o 'light'
+      return storedTheme === 'true' ? 'dark' : 'light';
+    }
+    return defaultTheme;
+  });
 
   useEffect(() => {
-    const root = window.document.documentElement
+    const root = document.documentElement;
 
-    root.classList.remove("light", "dark")
+    root.classList.remove('light', 'dark');
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-
-      root.classList.add(systemTheme)
-      return
+    if (theme === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.classList.add(systemTheme);
+    } else {
+      root.classList.add(theme);
     }
+  }, [theme]);
 
-    root.classList.add(theme)
-  }, [theme])
+  const handleSetTheme = (newTheme: Theme) => {
+    console.log('Setting theme to:', newTheme);  // Verifica si esta línea se ejecuta
+    // Guardamos 'true' o 'false' en lugar de 'dark' y 'light'
+    localStorage.setItem(storageKey, newTheme === 'dark' ? 'true' : 'false');
+    setTheme(newTheme);
+  };
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
-    },
-  }
+    setTheme: handleSetTheme,
+  };
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
       {children}
     </ThemeProviderContext.Provider>
-  )
+  );
 }
+
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)

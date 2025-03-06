@@ -1,8 +1,6 @@
 
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,45 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useEffect, useState } from "react";
 
 
 export function UserNav() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isDark = 
-        localStorage.getItem("darkMode") === "true" || 
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-  
-      setIsDarkMode(isDark);
-      if (isDark) {
-        document.documentElement.classList.add("dark"); // Esto activa el modo oscuro
-      } else {
-        document.documentElement.classList.remove("dark"); // Esto lo desactiva
-      }
-    }
-  }, []);
-  
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkMode", "false");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("darkMode", "true");
-    }
-  };
 
   return (
     <div className="flex items-center justify-center gap-4 ml-auto">
-      {/* Botón de Toggle Dark Mode */}
-      <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
-        {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-      </Button>
 
       {/* Avatar y Dropdown Menu del Usuario */}
       <DropdownMenu>
