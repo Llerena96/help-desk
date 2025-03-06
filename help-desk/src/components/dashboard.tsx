@@ -19,9 +19,9 @@ export default function Dashboard() {
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
           <MainNav className="mx-6" />
-          <div className="ml-auto flex items-center space-x-4">
+          {/* <div className="ml-auto flex items-center space-x-4">
             <UserNav />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex-1 space-y-4 p-8 pt-6">
@@ -29,13 +29,24 @@ export default function Dashboard() {
           <h2 className="text-3xl font-bold tracking-tight">Mesa de Ayuda</h2>
         </div>
         <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
-          <TabsList>
-            <TabsTrigger value="overview">Resumen</TabsTrigger>
-            <TabsTrigger value="new">Nuevo Ticket</TabsTrigger>
-            <TabsTrigger value="incident">Incidente</TabsTrigger>
-            <TabsTrigger value="reports">Reportes</TabsTrigger>
-            <TabsTrigger value="history">Historial</TabsTrigger>
+          <TabsList className="flex space-x-2 border-b">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+              Resumen
+            </TabsTrigger>
+            <TabsTrigger value="new" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+              Nuevo Ticket
+            </TabsTrigger>
+            <TabsTrigger value="incident" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+              Incidente
+            </TabsTrigger>
+            <TabsTrigger value="reports" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+              Reportes
+            </TabsTrigger>
+            <TabsTrigger value="history" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md">
+              Historial
+            </TabsTrigger>
           </TabsList>
+
           <TabsContent value="overview" className="space-y-4">
             <Overview />
             <RecentTickets />
@@ -76,4 +87,3 @@ export default function Dashboard() {
     </div>
   )
 }
-

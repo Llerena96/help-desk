@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Badge } from "./ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Search, Filter, Eye } from "lucide-react"
+import { Search, Filter, Eye, UserCheck, XCircle, Repeat } from "lucide-react"
 import { Link } from "react-router-dom"
 
 interface Ticket {
@@ -31,81 +31,95 @@ export function TicketList() {
 
   return (
     <div>
-        <div className="flex h-16 items-center px-4">
-          <MainNav className="mx-6" />
-          </div>
-    <Card>
-      <CardHeader>
-        <CardTitle>Listado de Tickets</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 w-full max-w-sm">
-            <Search className="w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Buscar por ID o título..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-9"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-muted-foreground" />
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[180px] h-9">
-                <SelectValue placeholder="Filtrar por estado" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos</SelectItem>
-                <SelectItem value="Abierto">Abierto</SelectItem>
-                <SelectItem value="En Progreso">En Progreso</SelectItem>
-                <SelectItem value="Pendiente">Pendiente</SelectItem>
-                <SelectItem value="Resuelto">Resuelto</SelectItem>
-                <SelectItem value="Crítico">Crítico</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+      <div className="flex h-16 items-center px-4">
+        <MainNav className="mx-6" />
+      </div>
 
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead>Título</TableHead>
-                <TableHead>Solicitante</TableHead>
-                <TableHead>Fecha</TableHead>
-                <TableHead>Estado</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredTickets.length > 0 ? (
-                filteredTickets.map((ticket) => (
-                  <TableRow key={ticket.id}>
-                    <TableCell className="font-medium">{ticket.id}</TableCell>
-                    <TableCell><Link to={`/tickets/${ticket.id}`}>{ticket.title}</Link></TableCell> 
-                    <TableCell>{ticket.requester}</TableCell>
-                    <TableCell>{ticket.date}</TableCell>
-                    <TableCell>
-                      <Badge variant={getVariantByStatus(ticket.status)}>{ticket.status}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
+      <Card>
+        <CardHeader>
+          <CardTitle>Listado de Tickets</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 w-full max-w-sm">
+              <Search className="w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Buscar por ID o título..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="h-9 border border-gray-300 rounded-md px-2"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-muted-foreground" />
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="w-[180px] h-9 border border-gray-300 rounded-md">
+                  <SelectValue placeholder="Filtrar por estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="Abierto">Abierto</SelectItem>
+                  <SelectItem value="En Progreso">En Progreso</SelectItem>
+                  <SelectItem value="Pendiente">Pendiente</SelectItem>
+                  <SelectItem value="Resuelto">Resuelto</SelectItem>
+                  <SelectItem value="Crítico">Crítico</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="rounded-md border shadow-sm">
+            <Table className="w-full text-sm">
+              <TableHeader className="bg-gray-100">
+                <TableRow>
+                  <TableHead className="w-[100px]">ID</TableHead>
+                  <TableHead>Título</TableHead>
+                  <TableHead>Solicitante</TableHead>
+                  <TableHead>Fecha</TableHead>
+                  <TableHead>Estado</TableHead>
+                  <TableHead className="text-center">Acciones</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredTickets.length > 0 ? (
+                  filteredTickets.map((ticket) => (
+                    <TableRow key={ticket.id} className="border-b hover:bg-gray-50">
+                      <TableCell className="font-medium">{ticket.id}</TableCell>
+                      <TableCell>
+                        <Link to={`/tickets/${ticket.id}`} className="text-blue-600 hover:underline">
+                          {ticket.title}
+                        </Link>
+                      </TableCell>
+                      <TableCell>{ticket.requester}</TableCell>
+                      <TableCell>{ticket.date}</TableCell>
+                      <TableCell>
+                        <Badge variant={getVariantByStatus(ticket.status)}>{ticket.status}</Badge>
+                      </TableCell>
+                      <TableCell className="text-center space-x-2">
+                        <Button size="sm" variant="outline">
+                          <UserCheck className="w-4 h-4 mr-1" /> Reasignar
+                        </Button>
+                        <Button size="sm" variant="destructive">
+                          <XCircle className="w-4 h-4 mr-1" /> Cerrar
+                        </Button>
+                        <Button size="sm" variant="secondary">
+                          <Repeat className="w-4 h-4 mr-1" /> Cambiar estado
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} className="h-24 text-center">
+                      No se encontraron tickets.
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={6} className="h-24 text-center">
-                    No se encontraron tickets.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
@@ -130,61 +144,12 @@ function getVariantByStatus(
 }
 
 export const tickets: Ticket[] = [
-  {
-    id: "TK-001",
-    title: "Problema con impresora",
-    requester: "Carlos Pérez",
-    date: "2023-03-01",
-    status: "Abierto",
-  },
-  {
-    id: "TK-002",
-    title: "Error en sistema de facturación",
-    requester: "María López",
-    date: "2023-03-01",
-    status: "Crítico",
-  },
-  {
-    id: "TK-003",
-    title: "Solicitud de nuevo equipo",
-    requester: "Juan Pérez",
-    date: "2023-02-28",
-    status: "En Progreso",
-  },
-  {
-    id: "TK-004",
-    title: "Acceso a sistema CRM",
-    requester: "Ana Rodríguez",
-    date: "2023-02-28",
-    status: "Pendiente",
-  },
-  {
-    id: "TK-005",
-    title: "Actualización de software",
-    requester: "Pedro Sánchez",
-    date: "2023-02-27",
-    status: "Resuelto",
-  },
-  {
-    id: "TK-006",
-    title: "Problema con VPN",
-    requester: "Laura Martínez",
-    date: "2023-02-27",
-    status: "En Progreso",
-  },
-  {
-    id: "TK-007",
-    title: "Configuración de correo",
-    requester: "Roberto Gómez",
-    date: "2023-02-26",
-    status: "Resuelto",
-  },
-  {
-    id: "TK-008",
-    title: "Error en aplicación móvil",
-    requester: "Sofía Díaz",
-    date: "2023-02-26",
-    status: "Abierto",
-  },
+  { id: "TK-001", title: "Problema con impresora", requester: "Carlos Pérez", date: "2023-03-01", status: "Abierto" },
+  { id: "TK-002", title: "Error en sistema de facturación", requester: "María López", date: "2023-03-01", status: "Crítico" },
+  { id: "TK-003", title: "Solicitud de nuevo equipo", requester: "Juan Pérez", date: "2023-02-28", status: "En Progreso" },
+  { id: "TK-004", title: "Acceso a sistema CRM", requester: "Ana Rodríguez", date: "2023-02-28", status: "Pendiente" },
+  { id: "TK-005", title: "Actualización de software", requester: "Pedro Sánchez", date: "2023-02-27", status: "Resuelto" },
+  { id: "TK-006", title: "Problema con VPN", requester: "Laura Martínez", date: "2023-02-27", status: "En Progreso" },
+  { id: "TK-007", title: "Configuración de correo", requester: "Roberto Gómez", date: "2023-02-26", status: "Resuelto" },
+  { id: "TK-008", title: "Error en aplicación móvil", requester: "Sofía Díaz", date: "2023-02-26", status: "Abierto" },
 ]
-
