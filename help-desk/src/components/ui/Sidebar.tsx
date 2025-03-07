@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Home, Ticket, Users, Settings, Menu, X } from "lucide-react";
+import SlaConfiguration from "../SlaConfiguration";
 
 export function Sidebar({ isSidebarOpen, setSidebarOpen }: { isSidebarOpen: boolean; setSidebarOpen: (value: boolean) => void }) {
   const toggleSidebar = () => {
@@ -29,7 +30,7 @@ export function Sidebar({ isSidebarOpen, setSidebarOpen }: { isSidebarOpen: bool
               isSidebarOpen ? "opacity-100" : "opacity-0 hidden"
             }`}
           >
-            {/* Aquí va tu logo si lo tienes */}
+          
           </h1>
         </div>
 
@@ -37,7 +38,7 @@ export function Sidebar({ isSidebarOpen, setSidebarOpen }: { isSidebarOpen: bool
         <nav className="flex flex-col space-y-2 mt-5">
           <SidebarItem to="/" icon={<Home className="dark:text-white w-5 h-5" />} label="Inicio" isSidebarOpen={isSidebarOpen} />
           <SidebarItem to="/tickets" icon={<Ticket className="w-5 h-5" />} label="Tickets" isSidebarOpen={isSidebarOpen} />
-          <SidebarItem to="/users" icon={<Users className="w-5 h-5" />} label="Usuarios" isSidebarOpen={isSidebarOpen} />
+          <SidebarItem to="/users" icon={<Users className="w-5 h-5" />} label="Inventario" isSidebarOpen={isSidebarOpen} />
           <SidebarItem to="/settings" icon={<Settings className="w-5 h-5" />} label="Configuración" isSidebarOpen={isSidebarOpen} />
         </nav>
       </aside>
