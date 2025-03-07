@@ -11,7 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import WorkFlowIncident from "./ui/workFlowIncident"
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
+import { Label } from "./ui/label"
 // Datos de ejemplo - en una aplicación real, estos vendrían de una API
 const tickets = [
   {
@@ -25,10 +26,10 @@ const tickets = [
     site: "Sede Central",
     componentId: "FACT-001",
     startDate: "2023-10-15 10:15",
-    resolutionDate: "",
-    closeDate: "",
+    resolutionDate: "2023-10-16 10:15",
+    closeDate: "2023-10-16 10:15",
     assignedTo: "Carlos Méndez",
-    currentState:"clasificacion",
+    currentState: "clasificacion",
     category: "Software",
     history: [
       { date: "2023-10-15 09:30", action: "Ticket creado por Juan Pérez" },
@@ -36,6 +37,24 @@ const tickets = [
       { date: "2023-10-15 11:20", action: "Estado cambiado a 'En progreso'" },
     ],
   },
+]
+
+const categories = [
+  {
+    id: "1", name: "AD Administrativo", sub: [
+      {
+        id: "1-1", name: "Usuario", sub: [
+          { id: "1-1-1", name: "Reset de Password" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "2", name: "Hardware", sub: [
+      { id: "2-1", name: "Fallas" },
+      { id: "2-2", name: "Reemplazos" }
+    ]
+  }
 ]
 
 export function TicketDetailIncident() {
@@ -46,7 +65,11 @@ export function TicketDetailIncident() {
     title: ticket.title,
     description: ticket.description,
   })
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedsubCategory, setSelectedsubCategory] = useState("")
+  const [subCategories, setSubCategories] = useState([])
   const [resolution, setResolution] = useState("")
   const [completionCode, setCompletionCode] = useState("")
   const [comments, setComments] = useState([
@@ -101,6 +124,42 @@ export function TicketDetailIncident() {
       default:
         return <Badge>{priority}</Badge>
     }
+  }
+
+
+  const handleCategorySelect = (id) => {
+    const findCategory = (list, id) => {
+      for (const cat of list) {
+        if (cat.id === id) return cat
+        if (cat.sub) {
+          const found = findCategory(cat.sub, id)
+          if (found) return found
+        }
+      }
+      return null
+    }
+    const category = findCategory(categories, id)
+    setSelectedCategory(category.name)
+    setSubCategories(category.sub || [])
+  }
+
+  const renderCategoryOptions = (category, prefix = "") => (
+    <>
+      <SelectItem key={category.id} value={category.id}>
+        {prefix + category.name}
+      </SelectItem>
+      {category.sub?.map(sub => renderCategoryOptions(sub, prefix + category.name + "/"))}
+    </>
+  )
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      alert("Ticket creado: El ticket ha sido creado exitosamente.")
+      e.currentTarget.reset()
+    }, 1500)
   }
 
   const getStatusBadge = (status) => {
@@ -217,189 +276,272 @@ export function TicketDetailIncident() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium">Categoría</label>
-                    <Select defaultValue={ticket.category || "software"}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar categoría" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="hardware">Hardware</SelectItem>
-                        <SelectItem value="software">Software</SelectItem>
-                        <SelectItem value="network">Red</SelectItem>
-                        <SelectItem value="access">Accesos</SelectItem>
-                        <SelectItem value="other">Otro</SelectItem>
-                      </SelectContent>
-                    </Select>
+                <div className="grid grid-cols-2 gap-4 ">
+                  <div className="flex flex-col py-2 ">
+                    <Label className="text-gray-800 dark:text-white ">Categoría</Label>
+                    <div className="space-y-2s ">
+                      <Select onValueChange={handleCategorySelect}>
+                        <SelectTrigger className="dark:bg-gray-700 dark:text-white dark:bg-transparent">
+                          <SelectValue placeholder="Seleccione una categoría" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white dark:bg-gray-700 dark:text-white shadow-lg rounded-md border border-gray-300 dark:border-gray-600">
+                          {categories.map(cat => renderCategoryOptions(cat))}
+                        </SelectContent>
+                      </Select>
+                      <Button onClick={() => setIsModalOpen(true)}>cambiar a icono</Button>
+                    </div>
                   </div>
+                  <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="text-gray-800 dark:text-white">Seleccionar Categoría</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-2">
+                        {categories.map(cat => (
+                          <div key={cat.id}>
+                            <button
+                              className="w-full text-left p-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+                              onClick={() => handleCategorySelect(cat.id)}
+                            >
+                              {cat.name}
+                            </button>
 
-                  <div>
-                    <label className="text-sm font-medium">Estado</label>
-                    <Select defaultValue={ticket.status.toLowerCase().replace(" ", "-")}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccionar estado" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="abierto">Abierto</SelectItem>
-                        <SelectItem value="en-progreso">En progreso</SelectItem>
-                        <SelectItem value="resuelto">Resuelto</SelectItem>
-                        <SelectItem value="cerrado">Cerrado</SelectItem>
-                      </SelectContent>
-                    </Select>
+                            {selectedCategory === cat.name && (
+                              <div className="pl-4 mt-2 space-y-2">
+                                {subCategories.map(sub => (
+                                  <div key={sub.id}>
+                                    <button
+                                      className="w-full text-left p-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+                                      onClick={() => setSelectedsubCategory(sub.name)}
+                                    >
+                                      {sub.name}
+                                    </button>
+
+                                    {selectedsubCategory === sub.name && sub.sub && (
+                                      <div className="pl-4 mt-2 space-y-2">
+                                        {sub.sub.map(subsub => (
+                                          <button
+                                            key={subsub.id}
+                                            className="w-full text-left p-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+                                          >
+                                            {subsub.name}
+                                          </button>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      </DialogContent>
+                  </Dialog>
+                <div>
+                  <label className="text-sm font-medium">Estado</label>
+                  <Select defaultValue={ticket.status.toLowerCase().replace(" ", "-")}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccionar estado" />
+                    </SelectTrigger>
+                    <SelectContent className="dark:bg-gray-700">
+                      <SelectItem value="abierto">Abierto</SelectItem>
+                      <SelectItem value="en-progreso">En progreso</SelectItem>
+                      <SelectItem value="resuelto">Resuelto</SelectItem>
+                      <SelectItem value="cerrado">Cerrado</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Información adicional */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Detalles adicionales</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Building className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Sitio:</span>
+                <Input
+                  id="site"
+                  name="site"
+                  value={ticket.site}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Tag className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">ID del Componente:</span>
+                <Input
+                  id="componentId"
+                  name="componentId"
+                  value={ticket.componentId}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <User className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Asignado a:</span>
+                <Input
+                  id="assignedTo"
+                  name="assignedTo"
+                  value={ticket.assignedTo}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+
+              <Separator />
+
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Fecha de Inicio:</span>
+                <Input
+                  type="string"
+                  id="startDate"
+                  name="startDate"
+                  value={ticket.startDate}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Fecha de Resolución:</span>
+                <Input
+                  type="string"
+                  id="resolutionDate"
+                  name="resolutionDate"
+                  value={ticket.resolutionDate || ""}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Fecha de Cierre:</span>
+                <Input
+                  type="strisng"
+                  id="closeDate"
+                  name="closeDate"
+                  value={ticket.closeDate || ""}
+                  onChange={handleChange}
+                  className="text-sm"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Resolución</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Textarea
+                placeholder="Describe la resolución del problema..."
+                value={resolution}
+                onChange={(e) => setResolution(e.target.value)}
+                rows={3}
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium">Código de finalización</label>
+                  <Input
+                    placeholder="Ej: RES-001"
+                    value={completionCode}
+                    onChange={(e) => setCompletionCode(e.target.value)}
+                    className="mt-1"
+                  />
+                </div>
+
+                <div className="flex items-end">
+                  <Button className="w-full">Guardar Resolución</Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </TabsContent>
+      {/*Flujo de trabajo*/}
+      <TabsContent value="flow" className="mt-4">
+        <WorkFlowIncident currentStage="validacion" />
+      </TabsContent>
+
+      <TabsContent value="conversation" className="mt-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>Conversación</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {comments.map((comment, index) => (
+                <div key={index} className="flex gap-3">
+                  <Avatar>
+                    <AvatarImage src={comment.avatar} alt={comment.user} />
+                    <AvatarFallback>{comment.user.substring(0, 2)}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{comment.user}</span>
+                      <span className="text-xs text-muted-foreground">{comment.date}</span>
+                    </div>
+                    <p className="mt-1 text-sm">{comment.text}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* Información adicional */}
-            <div className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Detalles adicionales</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <Building className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Sitio:</span>
-                    <span className="text-sm">{ticket.site}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Tag className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">ID del Componente:</span>
-                    <span className="text-sm">{ticket.componentId}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Asignado a:</span>
-                    <span className="text-sm">{ticket.assignedTo}</span>
-                  </div>
-
-                  <Separator />
-
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Fecha de Inicio:</span>
-                    <span className="text-sm">{ticket.startDate}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Fecha de Resolución:</span>
-                    <span className="text-sm">{ticket.resolutionDate || "Pendiente"}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Fecha de Cierre:</span>
-                    <span className="text-sm">{ticket.closeDate || "Pendiente"}</span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Resolución</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Textarea
-                    placeholder="Describe la resolución del problema..."
-                    value={resolution}
-                    onChange={(e) => setResolution(e.target.value)}
-                    rows={3}
-                  />
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium">Código de finalización</label>
-                      <Input
-                        placeholder="Ej: RES-001"
-                        value={completionCode}
-                        onChange={(e) => setCompletionCode(e.target.value)}
-                        className="mt-1"
-                      />
-                    </div>
-
-                    <div className="flex items-end">
-                      <Button className="w-full">Guardar Resolución</Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              ))}
             </div>
-          </div>
-        </TabsContent>
-        {/*Flujo de trabajo*/}
-        <TabsContent value="flow" className="mt-4">
-          <WorkFlowIncident currentStage="validacion" />
-        </TabsContent>
+          </CardContent>
+          <CardFooter>
+            <div className="flex w-full gap-2">
+              <Textarea
+                placeholder="Escribe un comentario..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                className="flex-1"
+              />
+              <Button onClick={addComment} size="icon">
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      </TabsContent>
 
-        <TabsContent value="conversation" className="mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Conversación</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {comments.map((comment, index) => (
-                  <div key={index} className="flex gap-3">
-                    <Avatar>
-                      <AvatarImage src={comment.avatar} alt={comment.user} />
-                      <AvatarFallback>{comment.user.substring(0, 2)}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{comment.user}</span>
-                        <span className="text-xs text-muted-foreground">{comment.date}</span>
-                      </div>
-                      <p className="mt-1 text-sm">{comment.text}</p>
-                    </div>
+      <TabsContent value="history" className="mt-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>Historial de cambios</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {ticket.history?.map((change, index) => (
+                <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
+                  <div className="mt-0.5">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
                   </div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <div className="flex w-full gap-2">
-                <Textarea
-                  placeholder="Escribe un comentario..."
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  className="flex-1"
-                />
-                <Button onClick={addComment} size="icon">
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardFooter>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="history" className="mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Historial de cambios</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {ticket.history?.map((change, index) => (
-                  <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
-                    <div className="mt-0.5">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-sm">{change.action}</p>
-                      <p className="text-xs text-muted-foreground">{change.date}</p>
-                    </div>
+                  <div>
+                    <p className="text-sm">{change.action}</p>
+                    <p className="text-xs text-muted-foreground">{change.date}</p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+    </div >
   )
 }
 

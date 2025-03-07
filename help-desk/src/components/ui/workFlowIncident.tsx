@@ -1,5 +1,3 @@
-
-import { useEffect, useRef, useState } from "react"
 import type { WorkflowStage } from "../../types/types"
 
 interface WorkflowIncidentProps {
@@ -12,9 +10,9 @@ export default function WorkflowIncident({ currentStage = "resolucion" }: Workfl
   const normalizedCurrentStage = currentStage.toLowerCase()
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="fixed w-285 ">
       <div
-        className="min-h-[350px] min-w-[800px] bg-white dark:bg-transparent dark:border rounded-lg p-6 shadow-lg relative"
+        className="fixed min-h-[350px] min-w-[800px] bg-white dark:bg-transparent dark:border rounded-lg p-6 shadow-lg relative"
       >
         {/* Progress Indicator */}
         <div className="grid grid-cols-4 text-center text-sm font-medium mb-8">
@@ -69,7 +67,7 @@ export default function WorkflowIncident({ currentStage = "resolucion" }: Workfl
         </div>
 
         {/* Workflow Diagram */}
-        <div className="grid grid-cols-4 gap-6 relative">
+        <div className=" grid grid-cols-4 gap-6 relative">
           {["Inicio", "Resolución", "Validación", "Terminado"].map((section, index) => (
             <div key={index} className="workflow-box p-4 bg-blue-50 dark:bg-gray-700 rounded-lg relative">
               <div className="text-xs dark:text-white mb-2">{section}</div>
@@ -130,35 +128,35 @@ export default function WorkflowIncident({ currentStage = "resolucion" }: Workfl
 
         {/* Paths con marcadores de flecha al final */}
         <path
-          d="M238 15 C 250 20, 250 25, 297 75"
+          d="M238 15 C 250 20, 250 25, 295 75"
           stroke="#CBD5E1"
           strokeWidth="2"
           fill="none"
           markerEnd="url(#arrowhead)"
         />
         <path
-          d="M238 15 C 250 15, 250 15, 297 15"
+          d="M238 15 C 250 15, 250 15, 295 15"
           stroke="#CBD5E1"
           strokeWidth="2"
           fill="none"
           markerEnd="url(#arrowhead)"
         />
         <path
-          d="M522 15 C 550 15, 550 15, 574 15"
+          d="M517 15 C 550 15, 550 15, 570 15"
           stroke="#CBD5E1"
           strokeWidth="2"
           fill="none"
           markerEnd="url(#arrowhead)"
         />
         <path
-          d="M522 77 C 535 60, 544 55, 574 17"
+          d="M517 77 C 535 60, 544 55, 570 17"
           stroke="#CBD5E1"
           strokeWidth="2"
           fill="none"
           markerEnd="url(#arrowhead)"
         />
         <path
-          d="M805 15 C 820 15, 820 15, 860 15"
+          d="M798 15 C 820 15, 820 15, 852 15"
           stroke="#CBD5E1"
           strokeWidth="2"
           fill="none"

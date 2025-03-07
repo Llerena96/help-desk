@@ -34,7 +34,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/tickets/:ticketId" element={<TicketDetailIncident />} />
-                <Route path="/tickets/:ticketId" element={<TicketDetailService />} />
+                <Route path="/ticket_service/:ticketId" element={<TicketDetailService />} />
                 <Route path="/tickets" element={<TicketList />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />

@@ -15,15 +15,21 @@ export function TicketFormIncident() {
   const [subCategories, setSubCategories] = useState([])
 
   const categories = [
-    { id: "1", name: "AD Administrativo", sub: [
-      { id: "1-1", name: "Usuario", sub: [
-        { id: "1-1-1", name: "Reset de Password" }
-      ] }
-    ]},
-    { id: "2", name: "Hardware", sub: [
-      { id: "2-1", name: "Fallas" },
-      { id: "2-2", name: "Reemplazos" }
-    ]}
+    {
+      id: "1", name: "AD Administrativo", sub: [
+        {
+          id: "1-1", name: "Usuario", sub: [
+            { id: "1-1-1", name: "Reset de Password" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "2", name: "Hardware", sub: [
+        { id: "2-1", name: "Fallas" },
+        { id: "2-2", name: "Reemplazos" }
+      ]
+    }
   ]
 
   const handleCategorySelect = (id) => {
@@ -60,14 +66,14 @@ export function TicketFormIncident() {
       e.currentTarget.reset()
     }, 1500)
   }
-  
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md text-gray-900 dark:text-white">
       <h2 className="text-2xl font-semibold text-center text-gray-900 dark:text-white mb-6">Crear Incidente</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="title" className="text-gray-800 dark:text-white">Título</Label>
-          <Input id="title" placeholder="Título del incidente" required className="border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white" />
+          <Input id="title" placeholder="Título del incidente" required className=" dark:border focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-900" />
         </div>
         <div className="flex flex-col py-2">
           <Label className="text-gray-800 dark:text-white">Categoría</Label>
@@ -190,8 +196,8 @@ export function TicketFormIncident() {
         <Input id="attachment" type="file" multiple className="border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
       </div>
 
-      <Button 
-        type="submit" 
+      <Button
+        type="submit"
         className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600"
         disabled={isSubmitting}
       >
