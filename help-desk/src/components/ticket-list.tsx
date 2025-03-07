@@ -62,7 +62,7 @@ export function TicketList() {
                 <SelectTrigger className="pl-10 bg-gray-400 font-bold text-white h-10 border border-gray-600 rounded-md dark:bg-gray-700">
                   <SelectValue placeholder="Filtrar por estado" />
                 </SelectTrigger>
-                <SelectContent className="bg-white text-black dark:bg-gray-800">
+                <SelectContent className="bg-white text-black dark:text-white dark:bg-gray-800">
                   <SelectItem value="all">Todos</SelectItem>
                   <SelectItem value="Abierto">Abierto</SelectItem>
                   <SelectItem value="En Progreso">En Progreso</SelectItem>
