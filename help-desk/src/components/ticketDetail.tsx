@@ -60,21 +60,21 @@ export function TicketDetail() {
 
       {/* Botones de acción */}
       <div className="flex items-center justify-between p-3 bg-transparent border-lg">
-        <Button className="flex items-center gap-2 px-3 py-1 border rounded-lg text-white hover:bg-blue-900">
+        <Button className="flex items-center gap-2 px-3 py-1 border rounded-lg dark:text-white hover:bg-blue-900">
           <CornerDownLeft /> Atrás
         </Button>
 
         <div className="flex items-center space-x-4 text-gray-600">
-          <Button className="text-white hover:text-blue-900" onClick={handleSave}>
+          <Button className="dark:text-white hover:text-blue-900" onClick={handleSave}>
             <Save /> Guardar
           </Button>
-          <Button className="text-white hover:text-blue-900">
+          <Button className="dark:text-white hover:text-blue-900">
             <Save /> Guardar y cerrar
           </Button>
-          <Button className="text-white hover:text-blue-900">
+          <Button className="dark:text-white hover:text-blue-900">
             <RefreshCw /> Actualizar
           </Button>
-          <Button className="text-white hover:text-blue-900">
+          <Button className="dark:text-white hover:text-blue-900">
             <MessageSquareText /> Comentarios
           </Button>
         </div>
