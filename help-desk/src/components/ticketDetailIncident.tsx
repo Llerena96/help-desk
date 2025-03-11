@@ -230,24 +230,9 @@ export function TicketDetailIncident() {
           </Button>
         </div>
       </div>
-
-      <Tabs defaultValue="details">
-        <TabsList className="grid grid-cols-4 md:w-[800px]">
-          <TabsTrigger value="details" className="tab-trigger">
-            Detalles
-          </TabsTrigger>
-          <TabsTrigger value="flow" className="tab-trigger">
-            Flujo de trabajo
-          </TabsTrigger>
-          <TabsTrigger value="conversation" className="tab-trigger">
-            Conversación
-          </TabsTrigger>
-          <TabsTrigger value="history" className="tab-trigger">
-            Historial
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="details" className="space-y-4 mt-4">
+      <div className="tabs tabs-box">
+        <input type="radio" name="my_tabs_6" className="tab" aria-label="Resumen" defaultChecked />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Información principal */}
             <Card>
@@ -336,211 +321,213 @@ export function TicketDetailIncident() {
                           </div>
                         ))}
                       </div>
-                      </DialogContent>
+                    </DialogContent>
                   </Dialog>
-                <div>
-                  <label className="text-sm font-medium">Estado</label>
-                  <Select defaultValue={ticket.status.toLowerCase().replace(" ", "-")}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccionar estado" />
-                    </SelectTrigger>
-                    <SelectContent className="dark:bg-gray-700">
-                      <SelectItem value="abierto">Abierto</SelectItem>
-                      <SelectItem value="en-progreso">En progreso</SelectItem>
-                      <SelectItem value="resuelto">Resuelto</SelectItem>
-                      <SelectItem value="cerrado">Cerrado</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div>
+                    <label className="text-sm font-medium">Estado</label>
+                    <Select defaultValue={ticket.status.toLowerCase().replace(" ", "-")}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccionar estado" />
+                      </SelectTrigger>
+                      <SelectContent className="dark:bg-gray-700">
+                        <SelectItem value="abierto">Abierto</SelectItem>
+                        <SelectItem value="en-progreso">En progreso</SelectItem>
+                        <SelectItem value="resuelto">Resuelto</SelectItem>
+                        <SelectItem value="cerrado">Cerrado</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Información adicional */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Detalles adicionales</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Building className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Sitio:</span>
-                <Input
-                  id="site"
-                  name="site"
-                  value={ticket.site}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Tag className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">ID del Componente:</span>
-                <Input
-                  id="componentId"
-                  name="componentId"
-                  value={ticket.componentId}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Asignado a:</span>
-                <Input
-                  id="assignedTo"
-                  name="assignedTo"
-                  value={ticket.assignedTo}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-
-              <Separator />
-
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Fecha de Inicio:</span>
-                <Input
-                  type="string"
-                  id="startDate"
-                  name="startDate"
-                  value={ticket.startDate}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Fecha de Resolución:</span>
-                <Input
-                  type="string"
-                  id="resolutionDate"
-                  name="resolutionDate"
-                  value={ticket.resolutionDate || ""}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Fecha de Cierre:</span>
-                <Input
-                  type="strisng"
-                  id="closeDate"
-                  name="closeDate"
-                  value={ticket.closeDate || ""}
-                  onChange={handleChange}
-                  className="text-sm"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Resolución</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Textarea
-                placeholder="Describe la resolución del problema..."
-                value={resolution}
-                onChange={(e) => setResolution(e.target.value)}
-                rows={3}
-              />
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium">Código de finalización</label>
+            {/* Información adicional */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Detalles adicionales</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Building className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Sitio:</span>
                   <Input
-                    placeholder="Ej: RES-001"
-                    value={completionCode}
-                    onChange={(e) => setCompletionCode(e.target.value)}
-                    className="mt-1"
+                    id="site"
+                    name="site"
+                    value={ticket.site}
+                    onChange={handleChange}
+                    className="text-sm"
                   />
                 </div>
 
-                <div className="flex items-end">
-                  <Button className="w-full">Guardar Resolución</Button>
+                <div className="flex items-center gap-2">
+                  <Tag className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">ID del Componente:</span>
+                  <Input
+                    id="componentId"
+                    name="componentId"
+                    value={ticket.componentId}
+                    onChange={handleChange}
+                    className="text-sm"
+                  />
                 </div>
+
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Asignado a:</span>
+                  <Input
+                    id="assignedTo"
+                    name="assignedTo"
+                    value={ticket.assignedTo}
+                    onChange={handleChange}
+                    className="text-sm"
+                  />
+                </div>
+
+                <Separator />
+
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Fecha de Inicio:</span>
+                  <Input
+                    type="string"
+                    id="startDate"
+                    name="startDate"
+                    value={ticket.startDate}
+                    onChange={handleChange}
+                    className="text-sm"
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Fecha de Resolución:</span>
+                  <Input
+                    type="string"
+                    id="resolutionDate"
+                    name="resolutionDate"
+                    value={ticket.resolutionDate || ""}
+                    onChange={handleChange}
+                    className="text-sm"
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm font-medium">Fecha de Cierre:</span>
+                  <Input
+                    type="strisng"
+                    id="closeDate"
+                    name="closeDate"
+                    value={ticket.closeDate || ""}
+                    onChange={handleChange}
+                    className="text-sm"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Resolución</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <Textarea
+                  placeholder="Describe la resolución del problema..."
+                  value={resolution}
+                  onChange={(e) => setResolution(e.target.value)}
+                  rows={3}
+                />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Código de finalización</label>
+                    <Input
+                      placeholder="Ej: RES-001"
+                      value={completionCode}
+                      onChange={(e) => setCompletionCode(e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+
+                  <div className="flex items-end">
+                    <Button className="w-full">Guardar Resolución</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/*Flujo de trabajo*/}
+        <input type="radio" name="my_tabs_6" className="tab" aria-label="Flujo del ticket" />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          <WorkFlowIncident currentStage="validacion" />
+        </div>
+        <input type="radio" name="my_tabs_6" className="tab" aria-label="Conversación" />
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Conversación</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {comments.map((comment, index) => (
+                  <div key={index} className="flex gap-3">
+                    <Avatar>
+                      <AvatarImage src={comment.avatar} alt={comment.user} />
+                      <AvatarFallback>{comment.user.substring(0, 2)}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium">{comment.user}</span>
+                        <span className="text-xs text-muted-foreground">{comment.date}</span>
+                      </div>
+                      <p className="mt-1 text-sm">{comment.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+            <CardFooter>
+              <div className="flex w-full gap-2">
+                <Textarea
+                  placeholder="Escribe un comentario..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  className="flex-1"
+                />
+                <Button onClick={addComment} size="icon">
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+        <input type="radio" name="my_tabs_6" className="tab" aria-label="Historial"/>
+        <div className="tab-content bg-base-100 border-base-300 p-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Historial de cambios</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                {ticket.history?.map((change, index) => (
+                  <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
+                    <div className="mt-0.5">
+                      <Clock className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <div>
+                      <p className="text-sm">{change.action}</p>
+                      <p className="text-xs text-muted-foreground">{change.date}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
         </div>
-      </TabsContent>
-      {/*Flujo de trabajo*/}
-      <TabsContent value="flow" className="mt-4">
-        <WorkFlowIncident currentStage="validacion" />
-      </TabsContent>
-
-      <TabsContent value="conversation" className="mt-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Conversación</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {comments.map((comment, index) => (
-                <div key={index} className="flex gap-3">
-                  <Avatar>
-                    <AvatarImage src={comment.avatar} alt={comment.user} />
-                    <AvatarFallback>{comment.user.substring(0, 2)}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{comment.user}</span>
-                      <span className="text-xs text-muted-foreground">{comment.date}</span>
-                    </div>
-                    <p className="mt-1 text-sm">{comment.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full gap-2">
-              <Textarea
-                placeholder="Escribe un comentario..."
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                className="flex-1"
-              />
-              <Button onClick={addComment} size="icon">
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-
-      <TabsContent value="history" className="mt-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Historial de cambios</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {ticket.history?.map((change, index) => (
-                <div key={index} className="flex items-start gap-3 pb-3 border-b last:border-0">
-                  <div className="mt-0.5">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <p className="text-sm">{change.action}</p>
-                    <p className="text-xs text-muted-foreground">{change.date}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+      </div>
     </div >
   )
 }
