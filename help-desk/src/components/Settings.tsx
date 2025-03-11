@@ -1,6 +1,12 @@
+// admin
+
+import { Card } from "./ui/card"
 
 export const Settings = () => {
   return (
-    <div> Settings </div>
+    <div className="container">  
+      <Card />
+    
+    </div>
   )
 }
