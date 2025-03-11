@@ -3,7 +3,8 @@ import Dashboard from "./components/dashboard";
 import { Reports } from "./components/reports";
 import { Settings } from "./components/Settings";
 import { TicketList } from "./components/ticket-list";
-import { TicketDetail } from "./components/ticketDetail"
+import { TicketDetailIncident } from "./components/ticketDetailIncident";
+import { TicketDetailService } from "./components/ticketDetailService";
 import { LoginForm } from "./components/login";
 import { ThemeProvider } from "./components/theme-provider";
 import { Sidebar } from "./components/ui/Sidebar"; // Importa el Sidebar
@@ -32,7 +33,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/tickets/:ticketId" element={<TicketDetail />} />
+                <Route path="/tickets/:ticketId" element={<TicketDetailIncident />} />
+                <Route path="/ticket_service/:ticketId" element={<TicketDetailService />} />
                 <Route path="/tickets" element={<TicketList />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
