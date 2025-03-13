@@ -1,5 +1,5 @@
 import { useState } from "react"
-import React from "react"
+
 export const UserProfile = () => {
   // Estado de datos del usuario (esto puede venir de una API o del estado global)
   const [user, setUser] = useState({

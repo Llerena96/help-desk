@@ -1,0 +1,1 @@
+export const WorkflowStage = "clasificacion" | "resolucion" | "validacion" | "terminado"
