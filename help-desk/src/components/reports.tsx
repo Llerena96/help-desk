@@ -10,7 +10,7 @@ import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip 
 
 export function Reports() {
   // Estado para controlar el tipo de gráfico seleccionado
-  const [chartType, setChartType] = useState<string>('line');
+  const [chartType, setChartType] = useState('line');
 
   // Datos para los diferentes gráficos
   const performanceData = [
@@ -49,11 +49,11 @@ export function Reports() {
         <TabsContent value="summary">
           {/* Botones para seleccionar tipo de gráfico */}
           <div className="flex space-x-4 mb-4">
-            <Button onClick={() => setChartType('line')}className="tab-trigger">Línea</Button>
-            <Button onClick={() => setChartType('pie')}className="tab-trigger">Torta</Button>
-            <Button onClick={() => setChartType('area')}className="tab-trigger">Área</Button>
-            <Button onClick={() => setChartType('bar')}className="tab-trigger">Barras</Button>
-            <Button onClick={() => setChartType('radar')}className="tab-trigger">Radar</Button>
+            <Button onClick={() => setChartType('line')} className="btn btn-soft btn-info">Línea</Button>
+            <Button onClick={() => setChartType('pie')} className="btn btn-soft btn-success">Torta</Button>
+            <Button onClick={() => setChartType('area')} className="btn btn-soft btn-secondary">Área</Button>
+            <Button onClick={() => setChartType('bar')} className="btn btn-soft btn-warning">Barras</Button>
+            <Button onClick={() => setChartType('radar')} className="btn btn-soft btn-neutral">Radar</Button>
           </div>
 
           <Card>

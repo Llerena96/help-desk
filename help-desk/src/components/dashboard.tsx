@@ -5,17 +5,21 @@ import { Overview } from "./overview"
 import { RecentTickets } from "./recent-tickets"
 import { TicketForm } from "./ticket-form-service"
 import { Reports } from "./reports"
+<<<<<<< Updated upstream:help-desk/src/components/dashboard.tsx
 import { TicketFormIncident } from "./ticket-form-incident"
 import { useTheme } from "./theme-provider"
+=======
+import { TicketFormIncident } from "./ticketFormIncident"
+>>>>>>> Stashed changes:help-desk/src/components/dashboard.jsx
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="parent">
        
-      <div className="flex-1 space-y-4 p-8">
+      <div className="div2 pr-10 pl-5 pt-10">
         <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Mesa de Ayuda</h2>
+          <h2 className="text-3xl font-bold tracking-tight"></h2>
         </div>
         <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="flex space-x-2 border-b mb-7 pb-7">

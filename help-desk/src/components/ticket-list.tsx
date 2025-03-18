@@ -5,8 +5,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Search, Filter, List } from "lucide-react";
+import { Search, Filter, List, Edit } from "lucide-react";
 import { Progress } from "./ui/Progress";
+import { Button } from "./ui/button"; // Importar botón
 
 interface Ticket {
   id: string;
@@ -50,7 +51,8 @@ export function TicketList() {
   }
 
   return (
-    <div className="p-6 space-y-6 container mx-auto">
+    <div className="parent mt-10">
+      <div className="div2 pr-10 pl-5 pt-10"> 
       <Card>
         <CardHeader className="bg-gray-700 text-white rounded-t-md mb-7">
           <CardTitle className="flex items-center gap-2">
@@ -67,7 +69,7 @@ export function TicketList() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 bg-gray-400 text-white font-bold h-10 border border-gray-600 rounded-md dark:bg-gray-700"
-              />
+                />
             </div>
             <div className="relative mb-7">
               <Filter className="absolute left-3 top-2.5 w-5 h-5 text-white dark:text-gray-300" />
@@ -98,6 +100,7 @@ export function TicketList() {
                   <TableHead className="text-center font-bold">Fecha</TableHead>
                   <TableHead className="text-center font-bold">Estado</TableHead>
                   <TableHead className="text-center font-bold">Progreso</TableHead>
+                  <TableHead className="text-center font-bold">Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -123,6 +126,11 @@ export function TicketList() {
                           expectedEndDate={ticket.resolutionDate} 
                         />
                       </TableCell>
+                      <TableCell className="text-center">
+                        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                         <Edit />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))
                 ) : (
@@ -137,6 +145,7 @@ export function TicketList() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
