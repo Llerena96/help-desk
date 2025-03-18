@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Search, Filter, List, Edit } from "lucide-react";
 import { Progress } from "./ui/Progress";
 import { Button } from "./ui/button"; // Importar botón
+<<<<<<< Updated upstream:help-desk/src/components/ticket-list.tsx
 
 interface Ticket {
   id: string;
@@ -25,6 +26,8 @@ interface Ticket {
   date: string;
   status: string;
 }
+=======
+>>>>>>> Stashed changes:help-desk/src/components/ticketList.jsx
 
 export function TicketList() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -125,6 +128,11 @@ export function TicketList() {
                           startDate={ticket.startDate} 
                           expectedEndDate={ticket.resolutionDate} 
                         />
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                         <Edit />
+                        </Button>
                       </TableCell>
                       <TableCell className="text-center">
                         <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">

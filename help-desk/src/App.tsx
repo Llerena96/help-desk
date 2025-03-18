@@ -7,10 +7,13 @@ import { TicketDetail } from "./components/ticketDetail"
 import { LoginForm } from "./components/login";
 import { ThemeProvider } from "./components/theme-provider";
 <<<<<<< Updated upstream:help-desk/src/App.tsx
+<<<<<<< Updated upstream:help-desk/src/App.tsx
 import { Sidebar } from "./components/ui/Sidebar"; // Importa el Sidebar
 import { UserNav } from "./components/user-nav"; // Importa la navbar de usuario
 import { UserProfile } from "./components/UserProfile";
 =======
+=======
+>>>>>>> Stashed changes:help-desk/src/App.jsx
 import { Sidebar } from "./components/ui/sidebar";
 import { UserNav } from "./components/userNav";
 import { UserProfile } from "./components/userProfile";
@@ -38,10 +41,13 @@ function App() {
             <main className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "lg:pl-64" : "lg:pl-20"}`}>
               <Routes>
 <<<<<<< Updated upstream:help-desk/src/App.tsx
+<<<<<<< Updated upstream:help-desk/src/App.tsx
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/tickets/:ticketId" element={<TicketDetail />} />
 =======
+=======
+>>>>>>> Stashed changes:help-desk/src/App.jsx
                 <Route path="/" element={<Dashboard isSidebarOpen={isSidebarOpen} />} />
                 <Route path="/dashboard" element={<Dashboard isSidebarOpen={isSidebarOpen} />} />
                 <Route path="/tickets/:ticketId" element={<TicketDetailIncident />} />

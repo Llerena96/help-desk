@@ -6,8 +6,12 @@ import { RecentTickets } from "./recent-tickets"
 import { TicketForm } from "./ticket-form-service"
 import { Reports } from "./reports"
 <<<<<<< Updated upstream:help-desk/src/components/dashboard.tsx
+<<<<<<< Updated upstream:help-desk/src/components/dashboard.tsx
 import { TicketFormIncident } from "./ticket-form-incident"
 import { useTheme } from "./theme-provider"
+=======
+import { TicketFormIncident } from "./ticketFormIncident"
+>>>>>>> Stashed changes:help-desk/src/components/dashboard.jsx
 =======
 import { TicketFormIncident } from "./ticketFormIncident"
 >>>>>>> Stashed changes:help-desk/src/components/dashboard.jsx
